@@ -11,7 +11,7 @@ public class ApiResult implements Serializable {
 
 	private String status = ApiStatus.STATUS_OK;
 
-	private Object result = null;
+	private Object result = "";
 
 	public String getStatus() {
 		return status;
