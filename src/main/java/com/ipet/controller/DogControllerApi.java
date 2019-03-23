@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ipet.model.User;
+import com.ipet.model.DogParams;
+import com.ipet.model.Dog;
 import com.ipet.util.ApiResult;
 import com.ipet.util.ResultStatus;
 
@@ -21,38 +22,33 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(value="User接口",tags={"User"})
-public interface UserControllerApi {
+@Api(value="Dog接口",tags={"Dog"})
+public interface DogControllerApi {
 
-	@ApiOperation(value = "获取用户列表", response = ApiResult.class)
+	@ApiOperation(value = "获取狗列表", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class) })
-	@GetMapping(value = "/users", produces = { "application/json" })
-	ApiResult getUsers();
+	@GetMapping(value = "/dogs", produces = { "application/json" })
+	ApiResult getDogs();
 	
-	@ApiOperation(value = "分页取用户列表", response = ApiResult.class)
+	@ApiOperation(value = "分页取狗列表", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class) })
-	@RequestMapping(value = "/users/{pageNum}/{pageSize}", produces = { "application/json" }, method = RequestMethod.GET)
-	ApiResult pageGetUsers(
+	@RequestMapping(value = "/dogs/{pageNum}/{pageSize}", produces = { "application/json" }, method = RequestMethod.GET)
+	ApiResult pageGetDogs(
 			@ApiParam(value="页码",required=true) @PathVariable int pageNum,
 			@ApiParam(value="每页大小",required=true) @PathVariable int pageSize);
 	
-	@ApiOperation(value = "增加用户", response = ApiResult.class)
+	@ApiOperation(value = "增加狗", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class) })
-	@PostMapping(value = "/user", produces = { "application/json" })
-	ApiResult addUser(@ApiParam(value="用户信息",required=true) @RequestBody User user);
+	@PostMapping(value = "/dog", produces = { "application/json" })
+	ApiResult addDog(@ApiParam(value="狗信息",required=true) @RequestBody DogParams dogParams);
 	
-	@ApiOperation(value = "更新用户信息", response = ApiResult.class)
+	@ApiOperation(value = "更新狗信息", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class) })
-	@PutMapping(value = "/user", produces = { "application/json" })
-	ApiResult upateUser(@ApiParam(value="用户信息",required=true) @RequestBody User user);
+	@PutMapping(value = "/dog", produces = { "application/json" })
+	ApiResult upateDog(@ApiParam(value="狗信息",required=true) @RequestBody DogParams dogParams);
 	
-	@ApiOperation(value = "删除用户", response = ApiResult.class)
+	@ApiOperation(value = "删除狗", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class)})
-	@DeleteMapping(value = "/user", produces = { "application/json"} )
-	ApiResult deleteUser(@ApiParam(value="用户Ids",required=true) @RequestBody List<Integer> ids);
-	
-	@ApiOperation(value = "查询用户名是否存在", response = ApiResult.class)
-	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class)})
-	@DeleteMapping(value = "/checkUser/{username}", produces = { "application/json"} )
-	ApiResult checkUser(@ApiParam(value="username",required=true) @PathVariable String username);
+	@DeleteMapping(value = "/dog", produces = { "application/json"} )
+	ApiResult deleteDog(@ApiParam(value="狗Ids",required=true) @RequestBody List<Integer> ids);
 }

@@ -29,9 +29,9 @@
   
   <insert id="addUser" parameterType="com.ipet.model.User">
   	INSERT INTO
-  		t_user(id,username,password,nickName,avatarUrl,roleId)
+  		t_user(username,password,nickName,avatarUrl,roleId)
   	VALUES
-  		(#{id},#{username},#{password},#{nickName},#{avatarUrl},#{roleId})
+  		(#{username},#{password},#{nickName},#{avatarUrl},#{roleId})
   </insert>
   
   <update id="updateUser">

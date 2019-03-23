@@ -111,7 +111,7 @@ public class DruidConfig {
 	        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
 	        filterRegistrationBean.setFilter(new WebStatFilter());
 	        filterRegistrationBean.addUrlPatterns("/*");
-	        filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
+	        filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,/static/*");
 	        filterRegistrationBean.addInitParameter("profileEnable", "true");
 	        return filterRegistrationBean;
 	    }

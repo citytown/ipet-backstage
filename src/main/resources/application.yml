@@ -42,8 +42,7 @@ spring:
     # 合并多个DruidDataSource的监控数据
     useGlobalDataSourceStat: true
     #慢sql记录
-    logSlowSql: true
-    
+    logSlowSql: true    
 
 #logging:
     #level:

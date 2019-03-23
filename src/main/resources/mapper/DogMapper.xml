@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ipet.mapper.DogMapper">
+
+  <resultMap id="BaseResultMap" type="com.ipet.model.Dog">
+    <id column="id"  property="id" />
+    <result column="breed" property="breed" />
+    <result column="original" property="original" />
+    <result column="shape" property="shape" />
+    <result column="woolLength" property="woolLength" />
+    <result column="function" property="function" />
+    <result column="minLife" property="minLife" />
+    <result column="maxLife" property="maxLife" />
+    <result column="minPrice" property="minPrice" />
+    <result column="maxPrice" property="maxPrice" />
+    <result column="description" property="description" />
+  </resultMap>
+
+  <select id="getDogs" resultMap="BaseResultMap">
+    SELECT
+    	id,
+    	breed,
+    	original,
+    	shape,
+    	woolLength,
+    	function,
+    	minLife,
+    	maxLife,
+    	minPrice,
+    	maxPrice,
+    	description
+    FROM
+    	t_dog
+  </select>
+  
+  <select id="getDogsByBreed" resultMap="BaseResultMap">
+    SELECT
+    	id,
+    	breed,
+    	original,
+    	shape,
+    	woolLength,
+    	function,
+    	minLife,
+    	maxLife,
+    	minPrice,
+    	maxPrice,
+    	description
+    FROM
+    	t_dog
+    WHERE
+    	breed LIKE concat(cancat('%',#{breed}),'%')
+  </select>
+  
+  <insert id="addDog" parameterType="com.ipet.model.Dog">
+  	INSERT INTO
+  		t_dog(
+    	id,
+    	breed,
+    	original,
+    	shape,
+    	woolLength,
+    	function,
+    	minLife,
+    	maxLife,
+    	minPrice,
+    	maxPrice,
+    	description
+  		)
+  	VALUES
+  		(
+  		#{id},
+  		#{breed},
+  		#{original},
+  		#{shape},
+  		#{woolLength},
+  		#{function},
+  		#{minLife},
+  		#{maxLife},
+  		#{minPrice},
+  		#{maxPrice},
+  		#{description}
+  		)
+  </insert>
+  
+  <update id="updateDog">
+  	UPDATE
+  		t_dog
+  	SET 
+  		breed=#{breed},
+  		original=#{original},
+  		shape=#{shape},
+  		woolLength=#{woolLength},
+  		function=#{function},
+  		minLife=#{minLife},
+  		maxLife=#{maxLife},
+  		minPrice=#{minPrice},
+  		maxPrice=#{maxPrice},
+  		description=#{description}
+  	WHERE
+  		id=#{id}
+  </update>
+  
+  <delete id="delDog">
+  	DELETE FROM
+  		t_dog
+  	WHERE
+  		id=#{id}
+  </delete>
+
+</mapper>

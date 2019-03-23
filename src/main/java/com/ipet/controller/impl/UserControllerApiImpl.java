@@ -103,5 +103,23 @@ public class UserControllerApiImpl implements UserControllerApi{
 		return ar;
 	}
 
+	@Override
+	public ApiResult checkUser(String username) {
+		ApiResult ar = new ApiResult();
+		try {
+			User user = userService.getUserByUsername(username);
+			if(user == null){				
+				ar.setStatus(ApiStatus.STATUS_OK);
+			}else{
+				ar.setResult("用户已经存在");
+				ar.setStatus(ApiStatus.STATUS_ERROR);
+			}
+		} catch (Exception e) {
+			ar.setResult("查找人员错误");
+			ar.setStatus(ApiStatus.STATUS_ERROR);
+		}
+		return ar;
+	}
+
 
 }
