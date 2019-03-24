@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public void delUser(int id) {
+	public void delUser(String id) {
 		userMapper.delUser(id);
 	}
 
@@ -50,6 +50,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void updateUser(User user) {
 		userMapper.updateUser(user);
+	}
+
+	@Override
+	public List<User> queryUsersByLike(String username) {
+		List<User> users = userMapper.queryUsersByLike(username);
+		return users;
 	}
 
 }

@@ -15,6 +15,7 @@ import com.ipet.util.ApiResult;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
@@ -29,9 +30,10 @@ public interface FileControllerApi {
 
 	@ApiOperation(value = "File 文件上传", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "success", response = ApiResult.class) })
-	@PostMapping(value = "/upload/{type}", produces = { "application/json" })
-	ApiResult fileUpload(@RequestParam(value = "file", required = true) MultipartFile file
-			,@PathVariable(value = "type", required = true) String type);
+	@PostMapping(value = "/upload/{type}/{id}", produces = { "application/json" })
+	ApiResult fileUpload(@RequestParam(value = "file", required = true) MultipartFile file,
+			@ApiParam(value = "type", required = true) @PathVariable String type,
+			@ApiParam(value = "id", required = true) @PathVariable String id);
 	
 	@ApiOperation(value = "File 批量文件上传", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "success", response = ApiResult.class) })

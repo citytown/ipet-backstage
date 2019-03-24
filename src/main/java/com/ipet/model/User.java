@@ -9,7 +9,7 @@ package com.ipet.model;
 public class User {
 
 	//id
-	private int id;
+	private String id;
 	//用户名
 	private String username;
 	//密码
@@ -20,13 +20,30 @@ public class User {
 	private String avatarUrl;
 	//角色id
 	private int roleId;
-	public int getId() {
+	//注册时间
+	private String registerDate="";
+	//最后登录时间
+	private String lastLoginDate="";
+	
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-
+	public String getRegisterDate() {
+		return registerDate;
+	}
+	public void setRegisterDate(String registerDate) {
+		this.registerDate = registerDate;
+	}
+	public String getLastLoginDate() {
+		return lastLoginDate;
+	}
+	public void setLastLoginDate(String lastLoginDate) {
+		this.lastLoginDate = lastLoginDate;
+	}
 	public String getUsername() {
 		return username;
 	}

@@ -18,6 +18,15 @@
     	t_user
   </select>
   
+  <select id="queryUsersByLike" resultMap="BaseResultMap">
+    SELECT
+    	id,username,password,nickName,avatarUrl,roleId
+    FROM
+    	t_user
+    WHERE
+    	username LIKE CONCAT('%',#{username},'%')
+  </select>
+  
   <select id="getUserByUsername" resultMap="BaseResultMap">
     SELECT
     	id,username,password,nickName,avatarUrl,roleId
@@ -29,9 +38,9 @@
   
   <insert id="addUser" parameterType="com.ipet.model.User">
   	INSERT INTO
-  		t_user(username,password,nickName,avatarUrl,roleId)
+  		t_user(id,username,password,nickName,avatarUrl,roleId,registerDate,lastLoginDate)
   	VALUES
-  		(#{username},#{password},#{nickName},#{avatarUrl},#{roleId})
+  		(#{id},#{username},#{password},#{nickName},#{avatarUrl},#{roleId},#{registerDate},#{lastLoginDate})
   </insert>
   
   <update id="updateUser">

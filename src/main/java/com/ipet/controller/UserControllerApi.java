@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ipet.model.User;
 import com.ipet.util.ApiResult;
@@ -49,10 +50,15 @@ public interface UserControllerApi {
 	@ApiOperation(value = "删除用户", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class)})
 	@DeleteMapping(value = "/user", produces = { "application/json"} )
-	ApiResult deleteUser(@ApiParam(value="用户Ids",required=true) @RequestBody List<Integer> ids);
+	ApiResult deleteUser(@ApiParam(value="用户Ids",required=true) @RequestParam String[] ids);
 	
 	@ApiOperation(value = "查询用户名是否存在", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class)})
-	@DeleteMapping(value = "/checkUser/{username}", produces = { "application/json"} )
+	@GetMapping(value = "/checkUser/{username}", produces = { "application/json"} )
 	ApiResult checkUser(@ApiParam(value="username",required=true) @PathVariable String username);
+	
+	@ApiOperation(value = "用户名模糊查询", response = ApiResult.class)
+	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class)})
+	@GetMapping(value = "/likeUsers/{queryUsername}", produces = { "application/json"} )
+	ApiResult getUsersBylike(@ApiParam(value="queryUsername",required=true) @PathVariable String queryUsername);
 }

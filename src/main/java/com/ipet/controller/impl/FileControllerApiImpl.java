@@ -29,6 +29,8 @@ import com.ipet.util.ApiResult;
 import com.ipet.util.ApiStatus;
 import com.ipet.util.MyUIDUtils;
 
+import io.swagger.annotations.ApiParam;
+
 @RestController
 public class FileControllerApiImpl implements FileControllerApi {
 	
@@ -37,14 +39,15 @@ public class FileControllerApiImpl implements FileControllerApi {
 
 	@Override
 	public ApiResult fileUpload(@RequestParam(value = "file", required = true) MultipartFile file,
-			@PathVariable(value = "type", required = true) String type) {
+			@ApiParam(value = "type", required = true) @PathVariable String type,
+			@ApiParam(value = "id", required = true) @PathVariable String id) {
 		ApiResult result = new ApiResult();
 		List<Map<String, String>> fileList = new ArrayList<>();
 		Map<String, String> map = new HashMap<>();
 		String fileName = file.getOriginalFilename();
 		String contextPath ="";//项目路径
 		try {
-			contextPath = ResourceUtils.getURL("").getPath()  + "static/image/"  + type;
+			contextPath = ResourceUtils.getURL("").getPath()  + "static/image/"  + type + "/" + id;
 			if(!new File(contextPath).exists()){
 				new File(contextPath).mkdirs();
 			}
@@ -62,10 +65,12 @@ public class FileControllerApiImpl implements FileControllerApi {
 			String url = "";
 			FileUtils.copyInputStreamToFile(file.getInputStream(), new File(contextPath,fileName));
 			if(type.equals("dogPhoto")){//上传照片类型是狗照片，则需要入库
-				String id = MyUIDUtils.getId12();
+				String photoId = MyUIDUtils.getId12();
 				url = "static/image/" + type +"/" + fileName;
-				DogPhoto photo = new DogPhoto(id, "", fileName, url, 1, 0);
+				DogPhoto photo = new DogPhoto(photoId, "", fileName, url, 1, 0);
 				dogPhotoService.addDogPhoto(photo);
+			}else if(type.equals("user")){
+				url = "static/image/"  + type + "/" + id + "/" + fileName;
 			}
 			
 			map.put("name", fileName);

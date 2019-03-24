@@ -43,7 +43,14 @@ public interface UserMapper {
 	 * 删除用户
 	 * @param id
 	 */
-	void delUser(int id);
+	void delUser(String id);
+	
+	
+	/**
+	 * 用户名模糊查询
+	 * @return
+	 */
+	List<User> queryUsersByLike(String username);
 	
 	
 }

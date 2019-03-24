@@ -1,15 +1,15 @@
 package com.ipet.controller.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ipet.config.PageResultBean;
@@ -45,6 +45,8 @@ public class UserControllerApiImpl implements UserControllerApi{
 
 	@Override
 	public ApiResult addUser(@ApiParam(value="用户信息",required=true) @RequestBody User user) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		user.setRegisterDate(sdf.format(new Date()));
 		ApiResult ar = new ApiResult();
 		try {
 			userService.addUser(user);
@@ -88,10 +90,10 @@ public class UserControllerApiImpl implements UserControllerApi{
 	}
 
 	@Override
-	public ApiResult deleteUser(@ApiParam(value="用户Ids",required=true) @RequestBody List<Integer> ids) {
+	public ApiResult deleteUser(@ApiParam(value="用户Ids",required=true) @RequestParam String[] ids) {
 		ApiResult ar = new ApiResult();
 		try {
-			for(int id:ids){				
+			for(String id:ids){				
 				userService.delUser(id);
 			}
 			ar.setResult("删除用户成功");
@@ -104,7 +106,7 @@ public class UserControllerApiImpl implements UserControllerApi{
 	}
 
 	@Override
-	public ApiResult checkUser(String username) {
+	public ApiResult checkUser(@ApiParam(value="username",required=true) @PathVariable String username) {
 		ApiResult ar = new ApiResult();
 		try {
 			User user = userService.getUserByUsername(username);
@@ -114,6 +116,20 @@ public class UserControllerApiImpl implements UserControllerApi{
 				ar.setResult("用户已经存在");
 				ar.setStatus(ApiStatus.STATUS_ERROR);
 			}
+		} catch (Exception e) {
+			ar.setResult("查找人员错误");
+			ar.setStatus(ApiStatus.STATUS_ERROR);
+		}
+		return ar;
+	}
+
+	@Override
+	public ApiResult getUsersBylike(@ApiParam(value="queryUsername",required=true) @PathVariable String queryUsername) {
+		ApiResult ar = new ApiResult();
+		try {
+			List<User> users = userService.queryUsersByLike(queryUsername);
+			ar.setResult(users);
+			ar.setStatus(ApiStatus.STATUS_OK);
 		} catch (Exception e) {
 			ar.setResult("查找人员错误");
 			ar.setStatus(ApiStatus.STATUS_ERROR);
