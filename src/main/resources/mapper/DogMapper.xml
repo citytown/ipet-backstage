@@ -78,8 +78,40 @@
   			dog.breed,
   			photo.url
   		FROM 
-  			t_dog dog,t_dog_photo photo 
-  		WHERE dog.id = photo.dogId AND photo.isCover=1
+  			t_dog dog
+  		LEFT JOIN
+			t_dog_photo photo 
+		ON
+			dog.id = photo.dogId AND photo.isCover=1
+		<where>
+			<if test="breed != ''">
+				breed LIKE CONCAT('%',#{breed},'%')
+			</if>
+			<if test=" original!= ''">
+				AND original LIKE CONCAT('%',#{original},'%')
+			</if>
+			<if test=" shape!= ''">
+				AND shape=#{shape}
+			</if>
+			<if test=" woolLength!= ''">
+				AND woolLength=#{woolLength}
+			</if>
+			<if test=" function!= ''">
+				AND function=#{function}
+			</if>
+			<if test=" minLife!= ''">
+				AND minLife &lt;=#{minLife} AND maxLife &gt;=#{minLife}
+			</if>
+			<if test=" maxLife!= ''">
+				AND maxLife &lt;=#{maxLife}
+			</if>
+			<if test=" minPrice!= ''">
+				AND minPrice &lt;=#{minPrice} AND maxPrice &gt;=#{minPrice}
+			</if>
+			<if test=" maxPrice!= ''">
+				AND maxPrice &lt;=#{maxPrice}
+			</if>
+		</where>
   </select>
   
   <insert id="addDog" parameterType="com.ipet.model.Dog">

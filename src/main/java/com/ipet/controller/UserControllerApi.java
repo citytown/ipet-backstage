@@ -1,6 +1,7 @@
 package com.ipet.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ipet.model.UpdatePassParam;
 import com.ipet.model.User;
 import com.ipet.util.ApiResult;
 import com.ipet.util.ResultStatus;
@@ -61,4 +63,9 @@ public interface UserControllerApi {
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class)})
 	@GetMapping(value = "/likeUsers/{queryUsername}", produces = { "application/json"} )
 	ApiResult getUsersBylike(@ApiParam(value="queryUsername",required=true) @PathVariable String queryUsername);
+	
+	@ApiOperation(value = "密码更新", response = ApiResult.class)
+	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class)})
+	@PostMapping(value = "/updatePassword/{queryUsername}", produces = { "application/json"} )
+	ApiResult updatePassword(@ApiParam(value="updatePasswordParam",required=true) @RequestBody UpdatePassParam updateParam);
 }

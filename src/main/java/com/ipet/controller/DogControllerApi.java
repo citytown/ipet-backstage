@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ipet.model.Dog;
 import com.ipet.util.ApiResult;
@@ -55,5 +56,5 @@ public interface DogControllerApi {
 	@ApiOperation(value = "删除狗", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class)})
 	@DeleteMapping(value = "/dog", produces = { "application/json"} )
-	ApiResult deleteDog(@ApiParam(value="狗Ids",required=true) @RequestBody List<Integer> ids);
+	ApiResult deleteDog(@ApiParam(value="狗Ids",required=true) @RequestParam String id);
 }

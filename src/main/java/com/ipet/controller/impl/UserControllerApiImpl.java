@@ -3,6 +3,7 @@ package com.ipet.controller.impl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ipet.config.PageResultBean;
 import com.ipet.controller.UserControllerApi;
+import com.ipet.mapper.UserMapper;
+import com.ipet.model.UpdatePassParam;
 import com.ipet.model.User;
 import com.ipet.service.UserService;
 import com.ipet.util.ApiResult;
@@ -129,6 +132,23 @@ public class UserControllerApiImpl implements UserControllerApi{
 		try {
 			List<User> users = userService.queryUsersByLike(queryUsername);
 			ar.setResult(users);
+			ar.setStatus(ApiStatus.STATUS_OK);
+		} catch (Exception e) {
+			ar.setResult("查找人员错误");
+			ar.setStatus(ApiStatus.STATUS_ERROR);
+		}
+		return ar;
+	}
+
+	@Override
+	public ApiResult updatePassword(@ApiParam(value="updatePasswordParam",required=true) @RequestBody UpdatePassParam updateParam) {
+		ApiResult ar = new ApiResult();
+		try {
+			User user = userService.getUserByUsername(updateParam.getUsername());
+			if(user.getPassword().equals(updateParam.getOldPassword())){
+				user.setPassword(updateParam.getNewPassword());
+				userService.updateUser(user);
+			}
 			ar.setStatus(ApiStatus.STATUS_OK);
 		} catch (Exception e) {
 			ar.setResult("查找人员错误");

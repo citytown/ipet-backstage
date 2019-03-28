@@ -23,6 +23,8 @@
     	t_dog_photo
     WHERE
     	dogId=#{dogId}
+    ORDER BY
+    	isCover DESC
   </select>
   
   <select id="getDogPhtoById" resultMap="BaseResultMap">
