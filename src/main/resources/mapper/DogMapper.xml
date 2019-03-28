@@ -33,6 +33,26 @@
     	t_dog
   </select>
   
+  <select id="getDogInfo" resultMap="BaseResultMap">
+    SELECT
+    	id,
+    	breed,
+    	original,
+    	shape,
+    	woolLength,
+    	function,
+    	minLife,
+    	maxLife,
+    	minPrice,
+    	maxPrice,
+    	description
+    FROM
+    	t_dog
+    WHERE
+    	id = #{id}
+  </select>  
+  
+  
   <select id="getDogsByBreed" resultMap="BaseResultMap">
     SELECT
     	id,
@@ -50,6 +70,16 @@
     	t_dog
     WHERE
     	breed LIKE concat(cancat('%',#{breed}),'%')
+  </select>
+  
+  <select id="getDogsByCondition" parameterType="java.util.Map" resultType="java.util.Map">
+  		SELECT 
+  			dog.id,
+  			dog.breed,
+  			photo.url
+  		FROM 
+  			t_dog dog,t_dog_photo photo 
+  		WHERE dog.id = photo.dogId AND photo.isCover=1
   </select>
   
   <insert id="addDog" parameterType="com.ipet.model.Dog">

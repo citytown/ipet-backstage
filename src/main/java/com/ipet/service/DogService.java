@@ -9,14 +9,7 @@ import com.ipet.model.Dog;
 public interface DogService {
 
 
-	
-	/**
-	 * 根据页码每页大小获取狗信息
-	 * @param pageNum
-	 * @param pageSize
-	 * @return
-	 */
-	PageResultBean<Dog> pageGetUsers(int pageNum, int pageSize);
+
 	
 	/**
 	 * 增加狗
@@ -32,11 +25,18 @@ public interface DogService {
 	List<Dog> getDogs();
 	
 	/**
+	 * 获取狗详细信息
+	 * @param id
+	 * @return 
+	 */
+	Dog getDogInfo(String id);
+	
+	/**
 	 * 多条件查询狗
 	 * @param username
 	 * @return
 	 */
-	List<Dog> getDogsByCondition(Map<String, String> map);
+	List<Map<String, String>> getDogsByCondition(Map<String, String> map,int pageNum,int pageSize);
 	
 	
 	/**

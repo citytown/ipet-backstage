@@ -27,6 +27,7 @@ import com.ipet.model.DogPhoto;
 import com.ipet.service.DogPhotoService;
 import com.ipet.util.ApiResult;
 import com.ipet.util.ApiStatus;
+import com.ipet.util.IdWorker;
 import com.ipet.util.MyUIDUtils;
 
 import io.swagger.annotations.ApiParam;
@@ -36,6 +37,8 @@ public class FileControllerApiImpl implements FileControllerApi {
 	
 	@Autowired
 	private DogPhotoService dogPhotoService;
+	
+	private final static IdWorker worker2 = new IdWorker(2);
 
 	@Override
 	public ApiResult fileUpload(@RequestParam(value = "file", required = true) MultipartFile file,
@@ -63,16 +66,22 @@ public class FileControllerApiImpl implements FileControllerApi {
 			stream.write(bytes);
 			stream.close();*/
 			String url = "";
-			FileUtils.copyInputStreamToFile(file.getInputStream(), new File(contextPath,fileName));
-			if(type.equals("dogPhoto")){//上传照片类型是狗照片，则需要入库
-				String photoId = MyUIDUtils.getId12();
-				url = "static/image/" + type +"/" + fileName;
-				DogPhoto photo = new DogPhoto(photoId, "", fileName, url, 1, 0);
+			String photoId = "";
+			if(type.equals("dogPhotos")){//上传照片类型是狗相册，则需要入库
+			    photoId = worker2.nextId();
+				url = "image/"  + type + "/" + id + "/" + fileName;
+				DogPhoto photo = new DogPhoto(photoId, id, fileName, url, 0, 0);
+				dogPhotoService.addDogPhoto(photo);
+			}else if(type.equals("dogAvatar")){//上传狗封面
+				photoId = worker2.nextId();
+				url = "image/"  + type + "/" + id + "/" + fileName;
+				DogPhoto photo = new DogPhoto(photoId, id, fileName, url, 1, 0);
 				dogPhotoService.addDogPhoto(photo);
 			}else if(type.equals("user")){
-				url = "static/image/"  + type + "/" + id + "/" + fileName;
+				url = "image/"  + type + "/" + id + "/" + fileName;
 			}
-			
+			FileUtils.copyInputStreamToFile(file.getInputStream(), new File(contextPath,fileName));
+			map.put("id", photoId);
 			map.put("name", fileName);
 			map.put("url", url);
 			fileList.add(map);
@@ -89,7 +98,7 @@ public class FileControllerApiImpl implements FileControllerApi {
 
 	@Override
 	public ApiResult batchFileUpload(
-			@RequestParam(value = "batchFile", required = true) HttpServletRequest request,
+			@ApiParam(value = "batchFile", required = true) HttpServletRequest request,
 			@PathVariable(value = "type", required = true) String type) {
 		ApiResult result = new ApiResult();
 		List<MultipartFile> files =((MultipartHttpServletRequest)request).getFiles("file"); 
@@ -119,7 +128,7 @@ public class FileControllerApiImpl implements FileControllerApi {
 					FileUtils.copyInputStreamToFile(orderFile.getInputStream(), new File(contextPath, fileName)); // 以上操作为存取到本地文件中
 					if(type.equals("dogPhoto")){//上传照片类型是狗照片，则需要入库
 						String id = MyUIDUtils.getId12();
-						url = "static/image/" + type +"/" + fileName;
+						url = "image/" + type +"/" + fileName;
 						DogPhoto photo = new DogPhoto(id, "", fileName, url, 0, 0);//不是狗封面，暂时上传
 						dogPhotoService.addDogPhoto(photo);
 					}	
@@ -140,9 +149,25 @@ public class FileControllerApiImpl implements FileControllerApi {
 	
 	@Override
 	public ApiResult fileBatchDel(
-			@RequestParam(value = "一次性删除多个文件，ids为多个文件的id", required = true) @RequestBody String[] ids) {
-		// TODO Auto-generated method stub
-		return null;
+			@ApiParam(value = "一次性删除多个文件，ids为多个文件的id", required = true) @RequestParam String[] ids) {
+		ApiResult result = new ApiResult();
+		String contextPath = "";
+		try {
+			contextPath = ResourceUtils.getURL("").getPath() + "static/";
+		} catch (FileNotFoundException e) {
+			result.setStatus(ApiStatus.STATUS_ERROR);
+			result.setResult("项目路径出错");
+			e.printStackTrace();
+		}
+		for(String id:ids){
+			DogPhoto photo = dogPhotoService.getDogPhtoById(id);
+			String filePath = contextPath + photo.getUrl();
+			new File(filePath).delete();
+			dogPhotoService.delDogPhoto(id);
+		}
+		result.setStatus(ApiStatus.STATUS_OK);
+		result.setResult("删除成功");
+		return result;
 	}
 
 }

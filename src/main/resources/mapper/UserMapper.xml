@@ -47,10 +47,8 @@
   	UPDATE
   		t_user
   	SET 
-  		password=#{password},
   		nickName=#{nickName},
-  		avatarUrl=#{avatarUrl},
-  		roleId=#{roleId}
+  		avatarUrl=#{avatarUrl}
   	WHERE
   		id=#{id}
   </update>

@@ -2,6 +2,7 @@ package com.ipet.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -39,11 +40,11 @@ public interface FileControllerApi {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "success", response = ApiResult.class) })
 	@PostMapping(value = "/batchUpload/{type}", produces = { "application/json" })
 	ApiResult batchFileUpload(
-			@RequestParam(value = "batchFile", required = true) HttpServletRequest request,
+			@ApiParam(value = "batchFile", required = true) HttpServletRequest request,
 			@PathVariable(value = "type", required = true) String type);
 	
 	@ApiOperation(value = "文件批量删除", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "success", response = ApiResult.class) })
-	@PutMapping(value = "/batchDel", produces = { "application/json" })
-	ApiResult fileBatchDel(@RequestParam(value = "一次性删除多个文件，ids为多个文件的id", required = true) @RequestBody String[] ids);
+	@DeleteMapping(value = "/batchDel", produces = { "application/json" })
+	ApiResult fileBatchDel(@ApiParam(value = "一次性删除多个文件，ids为多个文件的id", required = true) @RequestParam String[] ids);
 }

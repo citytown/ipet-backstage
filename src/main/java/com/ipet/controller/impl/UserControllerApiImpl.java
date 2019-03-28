@@ -45,7 +45,7 @@ public class UserControllerApiImpl implements UserControllerApi{
 
 	@Override
 	public ApiResult addUser(@ApiParam(value="用户信息",required=true) @RequestBody User user) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		user.setRegisterDate(sdf.format(new Date()));
 		ApiResult ar = new ApiResult();
 		try {
@@ -79,7 +79,7 @@ public class UserControllerApiImpl implements UserControllerApi{
 	public ApiResult upateUser(@ApiParam(value="用户信息",required=true) @RequestBody User user) {
 		ApiResult ar = new ApiResult();
 		try {
-			//userService.updateUser(id,name);
+			userService.updateUser(user);
 			ar.setResult("更新用户成功");
 			ar.setStatus(ApiStatus.STATUS_OK);
 		} catch (Exception e) {

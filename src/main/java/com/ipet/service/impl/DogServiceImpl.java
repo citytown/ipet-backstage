@@ -1,5 +1,6 @@
 package com.ipet.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,12 +19,6 @@ public class DogServiceImpl implements DogService{
 	@Autowired
 	private DogMapper dogMapper;
 
-	@Override
-	public PageResultBean<Dog> pageGetUsers(int pageNum, int pageSize) {
-		PageHelper.startPage(pageNum, pageSize);
-		List<Dog> list = dogMapper.getDogs();
-		return new PageResultBean<>(list);
-	}
 
 	@Override
 	public void addDog(Dog dog) {
@@ -33,12 +28,6 @@ public class DogServiceImpl implements DogService{
 	@Override
 	public List<Dog> getDogs() {
 		List<Dog> list = dogMapper.getDogs();
-		return list;
-	}
-
-	@Override
-	public List<Dog> getDogsByCondition(Map<String, String> map) {
-		List<Dog> list = dogMapper.getDogsByCondition(map);
 		return list;
 	}
 
@@ -56,6 +45,30 @@ public class DogServiceImpl implements DogService{
 	@Override
 	public void delDog(String id) {
 		dogMapper.delDog(id);
+	}
+
+	@Override
+	public List<Map<String, String>> getDogsByCondition(Map<String, String> map,int pageNum,int pageSize) {
+		List<Map<String, String>> list = dogMapper.getDogsByCondition(map);
+		List<Map<String, String>> showList = new ArrayList<>();
+		if(pageSize > list.size()){			
+			return list;
+		}else{
+			int index = pageNum * pageSize -1;
+			for(int i = index ; i < list.size();i++){
+				if(i >= list.size()){
+					break;
+				}else{
+					showList.add(list.get(i));
+				}
+			}
+			return showList;
+		}
+	}
+
+	@Override
+	public Dog getDogInfo(String id) {
+		return dogMapper.getDogInfo(id);
 	}
 	
 	

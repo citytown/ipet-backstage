@@ -25,6 +25,21 @@
     	dogId=#{dogId}
   </select>
   
+  <select id="getDogPhtoById" resultMap="BaseResultMap">
+    SELECT
+    	id,
+    	dogId,
+    	name,
+    	url,
+    	isCover,
+    	type
+    FROM
+    	t_dog_photo
+    WHERE
+    	id=#{id}
+  </select>
+  
+  
 
   
   <insert id="addDogPhoto" parameterType="com.ipet.model.DogPhoto">
@@ -60,14 +75,14 @@
   
   <delete id="delDogPhoto">
   	DELETE FROM
-  		t_dog_phto
+  		t_dog_photo
   	WHERE
   		id=#{id}
   </delete>
   
   <delete id="delDogPhtoByDogId">
   	DELETE FROM
-  		t_dog_phto
+  		t_dog_photo
   	WHERE
   		dogId=#{dogId}
   </delete>

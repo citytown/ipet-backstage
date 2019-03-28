@@ -21,13 +21,21 @@ public interface DogPhotoMapper {
 	void addDogPhoto(DogPhoto photo);
 	
 	
+	/**
+	 * 根据ID查询
+	 * @param dogId
+	 * @return
+	 */
+	DogPhoto getDogPhtoById(String id);
+	
+	
 	
 	/**
 	 * 根据狗ID查询
 	 * @param dogId
 	 * @return
 	 */
-	List<Dog> getDogPhtosByDogId(String dogId);
+	List<DogPhoto> getDogPhtosByDogId(String dogId);
 	
 	/**
 	 * 更新狗照片信息

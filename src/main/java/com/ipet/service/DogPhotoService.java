@@ -20,7 +20,15 @@ public interface DogPhotoService {
 	 * @param dogId
 	 * @return
 	 */
-	List<Dog> getDogPhtosByDogId(String dogId);
+	List<DogPhoto> getDogPhtosByDogId(String dogId);
+	
+	
+	/**
+	 * 根据ID查询
+	 * @param dogId
+	 * @return
+	 */
+	DogPhoto getDogPhtoById(String id);
 	
 	/**
 	 * 更新狗照片信息

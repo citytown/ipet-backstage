@@ -19,4 +19,15 @@ public class DateTest {
 		int s = calendar.get(Calendar.DAY_OF_WEEK);
 		System.out.println(s);
 	}
+	
+	
+	private long sum(int a,int b){
+		long x = 0L;
+		return x;
+	}
+	
+	private long sum(int a,String b){
+		int x = 0;
+		return x;
+	}
 }

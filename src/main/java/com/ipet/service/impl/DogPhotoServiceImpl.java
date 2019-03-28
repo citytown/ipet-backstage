@@ -23,8 +23,8 @@ public class DogPhotoServiceImpl implements DogPhotoService {
 	}
 
 	@Override
-	public List<Dog> getDogPhtosByDogId(String dogId) {
-		List<Dog> list = dogPhotoMapper.getDogPhtosByDogId(dogId);
+	public List<DogPhoto> getDogPhtosByDogId(String dogId) {
+		List<DogPhoto> list = dogPhotoMapper.getDogPhtosByDogId(dogId);
 		return list;
 	}
 
@@ -41,6 +41,12 @@ public class DogPhotoServiceImpl implements DogPhotoService {
 	@Override
 	public void delDogPhtoByDogId(String dogId) {
 		dogPhotoMapper.delDogPhtoByDogId(dogId);
+	}
+
+	@Override
+	public DogPhoto getDogPhtoById(String id) {
+		DogPhoto photo = dogPhotoMapper.getDogPhtoById(id);
+		return photo;
 	}
 
 }

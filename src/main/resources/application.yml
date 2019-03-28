@@ -8,7 +8,7 @@ spring:
   application:
     name: ipet
   resources:
-    static-locations: classpath:/static/
+    static-locations: classpath:/static/,/static/
   ##数据库连接信息
   datasource:
     url: jdbc:mysql://120.27.22.255:3306/ipet?useUnicode=true&characterEncoding=utf8&useSSL=false

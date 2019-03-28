@@ -1,6 +1,7 @@
 package com.ipet.controller.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,10 +48,11 @@ public class DogControllerApiImpl implements DogControllerApi{
 	@Override
 	public ApiResult pageGetDogs(
 			@ApiParam(value="页码",required=true) @PathVariable int pageNum,
-			@ApiParam(value="每页大小",required=true) @PathVariable int pageSize) {
+			@ApiParam(value="每页大小",required=true) @PathVariable int pageSize,
+			@ApiParam(value="查询条件",required=true) @RequestBody Map<String, String> queryMap) {
 		ApiResult ar = new ApiResult();
 		try {
-			PageResultBean<Dog> list = dogService.pageGetUsers(pageNum, pageSize);
+			List<Map<String, String>> list = dogService.getDogsByCondition(queryMap, pageNum, pageSize);
 			ar.setResult(list);
 			ar.setStatus(ApiStatus.STATUS_OK);
 		} catch (Exception e) {
@@ -61,30 +63,24 @@ public class DogControllerApiImpl implements DogControllerApi{
 	}
 
 	@Override
-	public ApiResult addDog(@ApiParam(value="狗信息",required=true) @RequestBody DogParams dogParams) {
+	public ApiResult addDog(@ApiParam(value="狗信息",required=true) @RequestBody Dog dog) {
 		ApiResult ar = new ApiResult();
-		String id = MyUIDUtils.getId12();
-		Dog dog = new Dog(id,dogParams.getBreed(), dogParams.getOriginal(), dogParams.getShape(), dogParams.getWoolLength(),
-				dogParams.getFunction(), dogParams.getMinLife(), dogParams.getMaxLife(), dogParams.getMinPrice(), 
-				dogParams.getMaxPrice(), dogParams.getDescription());
-		List<String> photoIds = dogParams.getPhotoIds();
 		try {
 			dogService.addDog(dog);
-			for(String photoId:photoIds){
-				//TODO更新狗照片信息
-			}
+
 			ar.setResult("添加狗成功");
 			ar.setStatus(ApiStatus.STATUS_OK);
 		} catch (Exception e) {
 			ar.setResult("添加狗错误");
 			ar.setStatus(ApiStatus.STATUS_ERROR);
+			e.printStackTrace();
 		}
 		return ar;
 	}
 
 	@Override
-	public ApiResult upateDog(@ApiParam(value="狗信息",required=true) @RequestBody DogParams dogParams) {
-		// TODO Auto-generated method stub
+	public ApiResult upateDog(@ApiParam(value="狗信息",required=true) @RequestBody  Dog dog) {
+
 		return null;
 	}
 
@@ -93,7 +89,22 @@ public class DogControllerApiImpl implements DogControllerApi{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	@Override
+	public ApiResult getDogInfo(@ApiParam(value="狗信息",required=true) @PathVariable String dogId) {
+		ApiResult ar = new ApiResult();
+		try {
+			Dog dog = dogService.getDogInfo(dogId);
+			ar.setResult(dog);
+			ar.setStatus(ApiStatus.STATUS_OK);
+		} catch (Exception e) {
+			ar.setResult("查找狗错误");
+			ar.setStatus(ApiStatus.STATUS_ERROR);
+			e.printStackTrace();
+		}
+		return ar;
+	}
+
 
 
 }

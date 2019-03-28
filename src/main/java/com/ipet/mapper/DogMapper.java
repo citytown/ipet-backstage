@@ -21,17 +21,25 @@ public interface DogMapper {
 	
 	
 	/**
+	 * 获取狗详细信息
+	 * @param id
+	 * @return
+	 */
+	Dog getDogInfo(String id);
+	
+	
+	/**
 	 * 获取所有狗
 	 * @return
 	 */
 	List<Dog> getDogs();
 	
 	/**
-	 * 多条件查询狗
+	 * 多条件查询狗列表
 	 * @param username
 	 * @return
 	 */
-	List<Dog> getDogsByCondition(Map<String, String> map);
+	List<Map<String, String>> getDogsByCondition(Map<String, String> map);
 	
 	
 	/**
