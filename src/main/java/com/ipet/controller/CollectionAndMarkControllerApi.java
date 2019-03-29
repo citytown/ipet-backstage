@@ -26,14 +26,10 @@ public interface CollectionAndMarkControllerApi {
 	
 	@ApiOperation(value = "获取该用户对狗的收藏批注信息", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class) })
-	@GetMapping(value = "/collections/{userId}/{dogId}", produces = { "application/json" })
+	@GetMapping(value = "/collectionAndMark/{userId}/{dogId}", produces = { "application/json" })
 	ApiResult getCollectionAndMark(@ApiParam(value="userId",required=true) @PathVariable String userId,
 			@ApiParam(value="dogId",required=true) @PathVariable String dogId);
 	
-	@ApiOperation(value = "获取该用户对狗的收藏批注信息", response = ApiResult.class)
-	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class) })
-	@PostMapping(value = "/collectionAndMark", produces = { "application/json" })
-	ApiResult addCollectionAndMark(@ApiParam(value="CollectionAndMark",required=true) @RequestBody CollectionAndMark record);
 	
 	@ApiOperation(value = "更新该用户对狗的收藏信息", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class) })

@@ -49,4 +49,16 @@ public class CollectionAndMark {
 	}
 	
 	
+	public CollectionAndMark(String id, String userId, String dogId, int collect, String content) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.dogId = dogId;
+		this.collect = collect;
+		this.content = content;
+	}
+	
+	
+	
+	
 }
