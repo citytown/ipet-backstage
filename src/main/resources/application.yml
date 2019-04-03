@@ -7,6 +7,10 @@ server:
 spring:
   application:
     name: ipet
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
   resources:
     static-locations: classpath:/static/,/static/
   ##数据库连接信息

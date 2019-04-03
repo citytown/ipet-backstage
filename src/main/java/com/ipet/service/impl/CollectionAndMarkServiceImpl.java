@@ -1,10 +1,14 @@
 package com.ipet.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.ipet.config.PageResultBean;
+import com.ipet.mapper.CollectionAndMarkMapper;
 import com.ipet.model.CollectionAndMark;
 import com.ipet.service.CollectionAndMarkService;
 
@@ -12,35 +16,42 @@ import com.ipet.service.CollectionAndMarkService;
 public class CollectionAndMarkServiceImpl implements CollectionAndMarkService {
 
 	@Autowired
-	private CollectionAndMarkService markService;
+	private CollectionAndMarkMapper markMapper;
 
 	@Override
-	public List<CollectionAndMark> getCollections(String userId) {
-		List<CollectionAndMark> list = markService.getCollections(userId);
-		return list;
+	public PageResultBean<Map<String, String>> getCollections(String userId,int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Map<String, String>> list = markMapper.getCollections(userId);
+		return new PageResultBean<>(list);
 	}
 
 	@Override
 	public CollectionAndMark getRecord(String userId, String dogId) {
-		CollectionAndMark record = markService.getRecord(userId, dogId);
+		CollectionAndMark record = markMapper.getRecord(userId, dogId);
 		return record;
 	}
 
 	@Override
 	public void addRecord(CollectionAndMark record) {
-		markService.addRecord(record);
+		markMapper.addRecord(record);
 		
 	}
 
 	@Override
 	public void updateCollection(CollectionAndMark record) {
-		markService.updateCollection(record);
+		markMapper.updateCollection(record);
 		
 	}
 
 	@Override
 	public void updateContent(CollectionAndMark record) {
-		markService.updateContent(record);
+		markMapper.updateContent(record);
+		
+	}
+
+	@Override
+	public void delRecordByDogId(String dogId) {
+		markMapper.delRecordByDogId(dogId);
 		
 	}
 

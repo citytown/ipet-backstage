@@ -1,7 +1,8 @@
 package com.ipet.service;
 
-import java.util.List;
+import java.util.Map;
 
+import com.ipet.config.PageResultBean;
 import com.ipet.model.CollectionAndMark;
 
 public interface CollectionAndMarkService {
@@ -10,7 +11,7 @@ public interface CollectionAndMarkService {
 	 * 获取用户收藏
 	 * @param userId
 	 */
-	List<CollectionAndMark> getCollections(String userId);
+	PageResultBean<Map<String, String>> getCollections(String userId,int pageNum, int pageSize);
 	
 	/**
 	 * 获取该用户对狗的批注信息
@@ -38,4 +39,10 @@ public interface CollectionAndMarkService {
 	 * @param record
 	 */
 	void updateContent(CollectionAndMark record);
+	
+	/**
+	 * 删除用户对某只狗的收藏
+	 * @param dogId
+	 */
+	void delRecordByDogId(String dogId);
 }

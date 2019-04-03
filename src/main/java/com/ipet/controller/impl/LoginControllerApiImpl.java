@@ -24,7 +24,7 @@ public class LoginControllerApiImpl implements LoginControllerApi{
 		ApiResult result = new ApiResult();
 		try {			
 			User user = userService.getUserByUsername(loginParam.getUsername());
-			if(user.getPassword().equals(loginParam.getPassword())){
+			if(null != user &&user.getPassword().equals(loginParam.getPassword())){
 				user.setPassword("");
 				result.setStatus(ApiStatus.STATUS_OK);
 				result.setResult(user);

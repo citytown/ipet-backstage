@@ -48,6 +48,11 @@ public class FileControllerApiImpl implements FileControllerApi {
 		List<Map<String, String>> fileList = new ArrayList<>();
 		Map<String, String> map = new HashMap<>();
 		String fileName = file.getOriginalFilename();
+		//如果名字太长这自动分配名字
+		if(fileName.length()>12){
+			int index = fileName.lastIndexOf(".");
+			fileName = MyUIDUtils.getId12() + fileName.substring(index);
+		}
 		String contextPath ="";//项目路径
 		try {
 			contextPath = ResourceUtils.getURL("").getPath()  + "static/image/"  + type + "/" + id;

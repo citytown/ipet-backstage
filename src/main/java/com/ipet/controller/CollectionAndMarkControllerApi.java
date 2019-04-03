@@ -21,8 +21,10 @@ public interface CollectionAndMarkControllerApi {
 
 	@ApiOperation(value = "获取收藏列表", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class) })
-	@GetMapping(value = "/collections/{userId}", produces = { "application/json" })
-	ApiResult getCollections(@ApiParam(value="userId",required=true) @PathVariable String userId);
+	@GetMapping(value = "/collections/{userId}/{pageNum}/{pageSize}", produces = { "application/json" })
+	ApiResult getCollections(@ApiParam(value="userId",required=true) @PathVariable String userId,
+			@ApiParam(value="页码",required=true) @PathVariable int pageNum,
+			@ApiParam(value="每页大小",required=true) @PathVariable int pageSize);
 	
 	@ApiOperation(value = "获取该用户对狗的收藏批注信息", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class) })

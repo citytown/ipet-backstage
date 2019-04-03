@@ -10,13 +10,22 @@
     <result column="content" property="content" />
   </resultMap>
 
-  <select id="getCollections" resultMap="BaseResultMap">
-    SELECT
-    	id,userId,dogId,collect,content
-    FROM
-    	t_collection_and_mark
-    WHERE
-    	userId=#{userId}
+  <select id="getCollections" resultType="java.util.Map">
+  		SELECT 
+  			collection.dogId AS id,
+  			dog.breed,
+  			photo.url
+  		FROM 
+  			t_collection_and_mark collection
+  		LEFT JOIN
+			t_dog dog 
+		ON 
+			dog.id =collection.dogId 
+  		LEFT JOIN
+			t_dog_photo photo 
+		ON
+			dog.id = photo.dogId AND photo.isCover=1	
+		WHERE collection.collect=1 AND collection.userId=#{userId}
   </select>
   
   <select id="getRecord" resultMap="BaseResultMap">
@@ -46,14 +55,21 @@
   </update>
   
   
-    <update id="updateContent">
+   <update id="updateContent">
   	UPDATE
   		t_collection_and_mark
   	SET 
-  		collect=#{collect}
+  		content=#{content}
   	WHERE
   		userId=#{userId} AND dogId=#{dogId}
   </update>
+  
+  <delete id="delRecordByDogId">
+  	DELETE FROM
+  		t_collection_and_mark
+  	WHERE
+  		dogId=#{dogId}
+  </delete>
   
 
 </mapper>

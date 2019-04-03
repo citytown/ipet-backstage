@@ -1,6 +1,7 @@
 package com.ipet.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +13,7 @@ public interface CollectionAndMarkMapper {
 	 * 获取用户收藏
 	 * @param userId
 	 */
-	List<CollectionAndMark> getCollections(String userId);
+	List<Map<String, String>> getCollections(String userId);
 	
 	/**
 	 * 获取该用户对狗的批注信息
@@ -40,4 +41,11 @@ public interface CollectionAndMarkMapper {
 	 * @param record
 	 */
 	void updateContent(CollectionAndMark record);
+	
+	
+	/**
+	 * 删除用户对某只狗的收藏
+	 * @param dogId
+	 */
+	void delRecordByDogId(String dogId);
 }

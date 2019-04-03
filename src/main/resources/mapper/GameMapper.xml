@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ipet.mapper.GameMapper">
+
+  <resultMap id="BaseResultMap" type="com.ipet.model.Game">
+    <id column="id"  property="id" />
+    <result column="content" property="content" />
+    <result column="photoUrl" property="photoUrl" />
+    <result column="choiceOne" property="choiceOne" />
+    <result column="choiceTwo" property="choiceTwo" />
+    <result column="choiceThree" property="choiceThree" />
+    <result column="choiceFour" property="choiceFour" />
+    <result column="rightChoice" property="rightChoice" />
+  </resultMap>
+
+  <select id="getRandomGame" resultMap="BaseResultMap">
+		SELECT * FROM 
+			t_game 
+		WHERE 
+			id >= (
+			(SELECT MAX(id) FROM t_game)-(SELECT MIN(id) FROM t_game)
+			) 
+			* RAND() + (SELECT MIN(id) FROM t_game)       
+		LIMIT 1
+  </select>
+  
+  <select id="getGames" resultMap="BaseResultMap">
+	SELECT * FROM t_game
+  </select>  
+  
+  
+  
+  <insert id="addGame" parameterType="com.ipet.model.Dog">
+	INSERT INTO
+		t_game
+		(
+		content,
+		photoUrl,
+		choiceOne,
+		choiceTwo,
+		choiceThree,
+		choiceFour,
+		rightChoice
+		)
+	VALUES
+		(
+		#{content},
+		#{photoUrl},
+		#{choiceOne},
+		#{choiceTwo},
+		#{choiceThree},
+		#{choiceFour},
+		#{rightChoice}
+		)
+  </insert>
+  
+  <update id="updateGame">
+	UPDATE
+		t_game
+	SET
+		content=#{content},
+		photoUrl=#{photoUrl},
+		choiceOne=#{choiceOne},
+		choiceTwo=#{choiceTwo},
+		choiceThree=#{choiceThree},
+		choiceFour=#{choiceFour},
+		rightChoice=#{rightChoice}
+  </update>
+  
+  <delete id="delGame">
+	DELETE FROM
+		t_game
+	WHERE
+		id=#{id}
+  </delete>
+
+</mapper>

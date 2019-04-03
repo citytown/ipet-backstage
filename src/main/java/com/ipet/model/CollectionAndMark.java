@@ -48,6 +48,9 @@ public class CollectionAndMark {
 		this.content = content;
 	}
 	
+	public CollectionAndMark(){
+		
+	}
 	
 	public CollectionAndMark(String id, String userId, String dogId, int collect, String content) {
 		super();

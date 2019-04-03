@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 /**
- * 文件处理控制类
+ * 登陆处理控制类
  * @author S0105
  *
  */

@@ -22,6 +22,7 @@ import com.ipet.model.Dog;
 import com.ipet.model.DogParams;
 import com.ipet.model.DogPhoto;
 import com.ipet.model.User;
+import com.ipet.service.CollectionAndMarkService;
 import com.ipet.service.DogPhotoService;
 import com.ipet.service.DogService;
 import com.ipet.util.ApiResult;
@@ -38,6 +39,9 @@ public class DogControllerApiImpl implements DogControllerApi{
 	
 	@Autowired
 	private DogPhotoService photoService;
+	
+	@Autowired
+	private CollectionAndMarkService remarkService;
 	
 	
 	private static Logger logger = LoggerFactory.getLogger(DogControllerApiImpl.class);
@@ -113,8 +117,12 @@ public class DogControllerApiImpl implements DogControllerApi{
 				String filePath = ResourceUtils.getURL("").getPath() + "static/" + photo.getUrl();
 				new File(filePath).delete();
 			}
+			//删除狗照片
 			photoService.delDogPhtoByDogId(id);
+			//删除狗信息
 			dogService.delDog(id);
+			//删除用户对狗的收藏
+			remarkService.delRecordByDogId(id);
 			ar.setResult("删除狗成功");
 			ar.setStatus(ApiStatus.STATUS_OK);
 		} catch (Exception e) {
