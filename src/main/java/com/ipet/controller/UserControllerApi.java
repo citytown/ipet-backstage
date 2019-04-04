@@ -66,6 +66,6 @@ public interface UserControllerApi {
 	
 	@ApiOperation(value = "密码更新", response = ApiResult.class)
 	@ApiResponses(value = { @ApiResponse(code = ResultStatus.CODE_OK, message = "query Acitivity success", response = ApiResult.class)})
-	@PostMapping(value = "/updatePassword/{queryUsername}", produces = { "application/json"} )
+	@PostMapping(value = "/updatePassword", produces = { "application/json"} )
 	ApiResult updatePassword(@ApiParam(value="updatePasswordParam",required=true) @RequestBody UpdatePassParam updateParam);
 }

@@ -151,7 +151,7 @@ public class UserControllerApiImpl implements UserControllerApi{
 			}
 			ar.setStatus(ApiStatus.STATUS_OK);
 		} catch (Exception e) {
-			ar.setResult("查找人员错误");
+			ar.setResult("密码修改失败");
 			ar.setStatus(ApiStatus.STATUS_ERROR);
 		}
 		return ar;
