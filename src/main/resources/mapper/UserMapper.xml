@@ -13,14 +13,14 @@
 
   <select id="getUsers" resultMap="BaseResultMap">
     SELECT
-    	id,username,password,nickName,avatarUrl,roleId
+    	id,username,password,nickName,avatarUrl,roleId,registerDate,lastLoginDate
     FROM
     	t_user
   </select>
   
   <select id="queryUsersByLike" resultMap="BaseResultMap">
     SELECT
-    	id,username,password,nickName,avatarUrl,roleId
+    	id,username,password,nickName,avatarUrl,roleId,registerDate,lastLoginDate
     FROM
     	t_user
     WHERE
@@ -29,7 +29,7 @@
   
   <select id="getUserByUsername" resultMap="BaseResultMap">
     SELECT
-    	id,username,password,nickName,avatarUrl,roleId
+    	id,username,password,nickName,avatarUrl,roleId,registerDate,lastLoginDate
     FROM
     	t_user
     WHERE
@@ -49,6 +49,15 @@
   	SET 
   		nickName=#{nickName},
   		avatarUrl=#{avatarUrl}
+  	WHERE
+  		id=#{id}
+  </update>
+  
+    <update id="updateLoginTime">
+  	UPDATE
+  		t_user
+  	SET 
+  		lastLoginDate=#{lastLoginDate}
   	WHERE
   		id=#{id}
   </update>

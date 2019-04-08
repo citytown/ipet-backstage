@@ -58,4 +58,10 @@ public class UserServiceImpl implements UserService{
 		return users;
 	}
 
+	@Override
+	public void updateLoginTime(User user) {
+		userMapper.updateLoginTime(user);
+		
+	}
+
 }

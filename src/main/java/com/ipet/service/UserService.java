@@ -47,6 +47,12 @@ public interface UserService {
 	void updateUser(User user);
 	
 	/**
+	 * 更新最后登陆时间
+	 * @param user
+	 */
+	void updateLoginTime(User user);
+	
+	/**
 	 * 删除用户
 	 * @param id
 	 */
