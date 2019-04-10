@@ -65,6 +65,8 @@
 		choiceThree=#{choiceThree},
 		choiceFour=#{choiceFour},
 		rightChoice=#{rightChoice}
+	WHERE
+		id=#{id}
   </update>
   
   <delete id="delGame">
