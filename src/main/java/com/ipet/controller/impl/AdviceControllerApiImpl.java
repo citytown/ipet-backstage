@@ -2,6 +2,7 @@ package com.ipet.controller.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ public class AdviceControllerApiImpl implements AdviceControllerApi {
 	private AdviceService adviceService;
 
 	@Override
-	public ApiResult addGame(@ApiParam(value = "意见", required = true) @RequestBody Advice advice) {
+	public ApiResult addAdvice(@ApiParam(value = "意见", required = true) @RequestBody Advice advice) {
 		ApiResult result = new ApiResult();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
@@ -48,11 +49,11 @@ public class AdviceControllerApiImpl implements AdviceControllerApi {
 	}
 
 	@Override
-	public ApiResult getGameList(@ApiParam(value = "页码", required = true) @PathVariable int pageNum,
+	public ApiResult getAdviceList(@ApiParam(value = "页码", required = true) @PathVariable int pageNum,
 			@ApiParam(value = "每页大小", required = true) @PathVariable int pageSize) {
 		ApiResult result = new ApiResult();
 		try {
-			PageResultBean<Advice> list = adviceService.getAdviceList(pageNum, pageSize);
+			PageResultBean<Map<String, Object>> list = adviceService.getAdviceList(pageNum, pageSize);
 			result.setStatus(ApiStatus.STATUS_OK);
 			result.setResult(list);
 		} catch (Exception e) {
@@ -64,7 +65,7 @@ public class AdviceControllerApiImpl implements AdviceControllerApi {
 	}
 
 	@Override
-	public ApiResult delGame(@ApiParam(value = "id", required = true) @RequestParam String id) {
+	public ApiResult delAdvice(@ApiParam(value = "id", required = true) @RequestParam String id) {
 		ApiResult result = new ApiResult();
 		try {
 			adviceService.delAdvice(id);

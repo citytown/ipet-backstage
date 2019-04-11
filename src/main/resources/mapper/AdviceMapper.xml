@@ -10,8 +10,20 @@
     <result column="signDate" property="signDate" />
   </resultMap>
 
-  <select id="getAdviceList" resultMap="BaseResultMap">
-		SELECT * FROM t_advice
+  <select id="getAdviceList" resultType="java.util.Map">
+		SELECT
+	  		a.*,
+	  		b.nickName,
+	  		b.avatarUrl
+		FROM 
+  			t_advice a
+		LEFT JOIN
+  			t_user b
+ 		ON 
+ 			a.userId=b.id
+ 		ORDER BY
+ 			a.signDate
+ 		DESC
   </select>
 
   

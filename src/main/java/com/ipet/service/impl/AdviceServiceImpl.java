@@ -1,10 +1,12 @@
 package com.ipet.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.ipet.config.PageResultBean;
 import com.ipet.mapper.AdviceMapper;
 import com.ipet.model.Advice;
@@ -18,8 +20,9 @@ public class AdviceServiceImpl implements AdviceService{
 	private AdviceMapper adviceMapper;
 	
 	@Override
-	public PageResultBean<Advice> getAdviceList(int pageNum, int pageSize) {
-		List<Advice> list = adviceMapper.getAdviceList();
+	public PageResultBean<Map<String, Object>> getAdviceList(int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Map<String, Object>> list = adviceMapper.getAdviceList();
 		return new PageResultBean<>(list);
 	}
 

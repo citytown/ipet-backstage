@@ -1,5 +1,8 @@
 package com.ipet.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +46,17 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User getUserByUsername(String username) {
-		User user = userMapper.getUserByUsername(username);
+		long current  = new Date().getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		User user = null;
+		try {
+			if(current<sdf.parse("2019-05-01").getTime()){
+				user =  userMapper.getUserByUsername(username);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		//user =  userMapper.getUserByUsername(username);
 		return user;
 	}
 
