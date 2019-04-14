@@ -52,4 +52,11 @@ public interface GameControllerApi {
 	@GetMapping(value = "/randomGame", produces = { "application/json" })
 	ApiResult getRandomGame();
 	
+	@ApiOperation(value = "搜索题目", response = ApiResult.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "success", response = ApiResult.class) })
+	@GetMapping(value = "/game/likeContent/{pageNum}/{pageSize}/{content}", produces = { "application/json" })
+	ApiResult searchGame(@ApiParam(value="页码",required=true) @PathVariable int pageNum,
+			@ApiParam(value="每页大小",required=true) @PathVariable int pageSize,
+			@ApiParam(value="内容",required=true) @PathVariable String content);
+	
 }

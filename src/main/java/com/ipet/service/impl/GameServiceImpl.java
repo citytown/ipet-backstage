@@ -48,5 +48,12 @@ public class GameServiceImpl implements GameService{
 		return new PageResultBean<>(games);
 	}
 
+	@Override
+	public PageResultBean<Game> searchGames(int pageNum, int pageSize, String content) {
+		PageHelper.startPage(pageNum,pageSize);
+		List<Game> list = gameMapper.searchGames(content);
+		return new PageResultBean<>(list);
+	}
+
 	
 }

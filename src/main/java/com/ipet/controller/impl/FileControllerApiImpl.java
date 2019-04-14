@@ -80,6 +80,7 @@ public class FileControllerApiImpl implements FileControllerApi {
 			}else if(type.equals("dogAvatar")){//上传狗封面
 				photoId = worker2.nextId();
 				url = "image/"  + type + "/" + id + "/" + fileName;
+				dogPhotoService.DelDogCover(id);
 				DogPhoto photo = new DogPhoto(photoId, id, fileName, url, 1, 0);
 				dogPhotoService.addDogPhoto(photo);
 			}else if(type.equals("user")){

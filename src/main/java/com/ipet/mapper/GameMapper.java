@@ -2,6 +2,7 @@ package com.ipet.mapper;
 
 import java.util.List;
 
+import com.ipet.config.PageResultBean;
 import com.ipet.model.Game;
 
 /**
@@ -26,6 +27,12 @@ public interface GameMapper {
 	
 	
 	List<Game> getGames();
+	
+	/**
+	 * 查询游戏
+	 * @return
+	 */
+	List<Game> searchGames(String content);
 	
 	
 }

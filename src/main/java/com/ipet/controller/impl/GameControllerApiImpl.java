@@ -94,4 +94,20 @@ public class GameControllerApiImpl implements GameControllerApi{
 		return ar;
 	}
 
+	@Override
+	public ApiResult searchGame(@ApiParam(value="页码",required=true) @PathVariable int pageNum,
+			@ApiParam(value="每页大小",required=true) @PathVariable int pageSize,
+			@ApiParam(value="内容",required=true) @PathVariable String content) {
+		ApiResult ar = new ApiResult();
+		try {
+			PageResultBean<Game> list = gameService.searchGames(pageNum, pageSize, content);
+			ar.setResult(list);
+			ar.setStatus(ApiStatus.STATUS_OK);
+		} catch (Exception e) {
+			ar.setResult("查找失败");
+			ar.setStatus(ApiStatus.STATUS_ERROR);
+		}
+		return ar;
+	}
+
 }

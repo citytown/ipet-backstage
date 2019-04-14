@@ -52,6 +52,14 @@ public interface UserService {
 	 */
 	void updateLoginTime(User user);
 	
+	
+	/**
+	 * 更新密码
+	 * @param id
+	 * @param name
+	 */
+	void updatePassword(User user);
+	
 	/**
 	 * 删除用户
 	 * @param id

@@ -39,6 +39,13 @@ public interface UserMapper {
 	 */
 	void updateUser(User user);
 	
+	/**
+	 * 更新密码
+	 * @param id
+	 * @param name
+	 */
+	void updatePassword(User user);
+	
 	
 	/**
 	 * 更新最后登陆时间

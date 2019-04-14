@@ -147,9 +147,12 @@ public class UserControllerApiImpl implements UserControllerApi{
 			User user = userService.getUserByUsername(updateParam.getUsername());
 			if(user.getPassword().equals(updateParam.getOldPassword())){
 				user.setPassword(updateParam.getNewPassword());
-				userService.updateUser(user);
+				userService.updatePassword(user);;
+				ar.setStatus(ApiStatus.STATUS_OK);
+			}else{
+				ar.setResult("密码修改失败");
+				ar.setStatus(ApiStatus.STATUS_ERROR);
 			}
-			ar.setStatus(ApiStatus.STATUS_OK);
 		} catch (Exception e) {
 			ar.setResult("密码修改失败");
 			ar.setStatus(ApiStatus.STATUS_ERROR);

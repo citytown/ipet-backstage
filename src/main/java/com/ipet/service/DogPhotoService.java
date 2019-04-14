@@ -31,10 +31,10 @@ public interface DogPhotoService {
 	DogPhoto getDogPhtoById(String id);
 	
 	/**
-	 * 更新狗照片信息
+	 * 删除狗封面信息
 	 * @param photo
 	 */
-	void updateDogPhoto(DogPhoto photo);
+	void DelDogCover(String dogId);
 	
 	/**
 	 * 删除狗照片

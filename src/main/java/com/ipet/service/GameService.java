@@ -30,5 +30,11 @@ public interface GameService {
 	 */
 	PageResultBean<Game> getGames(int pageNum,int pageSize);
 	
+	/**
+	 * 查询游戏
+	 * @return
+	 */
+	PageResultBean<Game> searchGames(int pageNum,int pageSize,String content);
+	
 
 }

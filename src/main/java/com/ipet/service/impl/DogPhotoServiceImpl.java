@@ -28,10 +28,6 @@ public class DogPhotoServiceImpl implements DogPhotoService {
 		return list;
 	}
 
-	@Override
-	public void updateDogPhoto(DogPhoto photo) {
-		dogPhotoMapper.updateDogPhoto(photo);
-	}
 
 	@Override
 	public void delDogPhoto(String id) {
@@ -47,6 +43,12 @@ public class DogPhotoServiceImpl implements DogPhotoService {
 	public DogPhoto getDogPhtoById(String id) {
 		DogPhoto photo = dogPhotoMapper.getDogPhtoById(id);
 		return photo;
+	}
+
+	@Override
+	public void DelDogCover(String dogId) {
+		dogPhotoMapper.DelDogCover(dogId);
+		
 	}
 
 }

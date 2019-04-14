@@ -28,6 +28,11 @@
 	SELECT * FROM t_game
   </select>  
   
+   <select id="searchGames" resultMap="BaseResultMap">
+	SELECT * FROM t_game WHERE content LIKE CONCAT(CONCAT("%",#{content}),"%")
+  </select> 
+  
+  
   
   
   <insert id="addGame" parameterType="com.ipet.model.Dog">

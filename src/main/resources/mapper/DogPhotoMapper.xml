@@ -65,15 +65,12 @@
   		)
   </insert>
   
-  <update id="updateDogPhoto">
-  	UPDATE
+  <delete id="DelDogCover">
+  	DELETE FROM
   		t_dog_photo
-  	SET 
-  		isCover=#{isCover},
-  		type=#{type}
   	WHERE
-  		id=#{id}
-  </update>
+  		dogId=#{dogId} AND isCover=1
+  </delete>
   
   <delete id="delDogPhoto">
   	DELETE FROM
